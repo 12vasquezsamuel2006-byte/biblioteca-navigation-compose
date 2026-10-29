@@ -10,6 +10,8 @@ import com.example.biblioteca.ui.theme.home.BookListScreen
 import com.example.biblioteca.ui.theme.home.BookDetailScreen
 import com.example.biblioteca.ui.theme.home.ConfirmationScreen
 import com.example.biblioteca.ui.theme.home.MyReservationsScreen
+import com.example.biblioteca.ui.theme.home.RenewReservationScreen
+import com.example.biblioteca.ui.theme.home.RenewSuccessScreen
 import com.example.biblioteca.ui.theme.home.ReservationDetailScreen
 
 @Composable
@@ -112,6 +114,35 @@ fun AppNavigation() {
                     )
                 },
                 onCancelarClick = {
+                    navController.popBackStack(MisReservas, inclusive = false)
+                }
+            )
+        }
+
+        composable<RenovarReserva> { backStackEntry ->
+            val datos = backStackEntry.toRoute<RenovarReserva>()
+
+            RenewReservationScreen(
+                nombreLibro = datos.nombreLibro,
+                fechaReserva = datos.fechaReserva,
+                onConfirmarClick = { fechaNueva ->
+                    navController.navigate(
+                        RenovacionExitosa(
+                            nombreLibro = datos.nombreLibro,
+                            fechaNueva = fechaNueva
+                        )
+                    )
+                }
+            )
+        }
+
+        composable<RenovacionExitosa> { backStackEntry ->
+            val datos = backStackEntry.toRoute<RenovacionExitosa>()
+
+            RenewSuccessScreen(
+                nombreLibro = datos.nombreLibro,
+                fechaNueva = datos.fechaNueva,
+                onVolverMisReservasClick = {
                     navController.popBackStack(MisReservas, inclusive = false)
                 }
             )
