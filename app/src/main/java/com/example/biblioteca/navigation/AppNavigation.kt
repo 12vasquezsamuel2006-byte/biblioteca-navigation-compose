@@ -10,6 +10,7 @@ import com.example.biblioteca.ui.theme.home.BookListScreen
 import com.example.biblioteca.ui.theme.home.BookDetailScreen
 import com.example.biblioteca.ui.theme.home.ConfirmationScreen
 import com.example.biblioteca.ui.theme.home.MyReservationsScreen
+import com.example.biblioteca.ui.theme.home.ReservationDetailScreen
 
 @Composable
 fun AppNavigation() {
@@ -89,6 +90,29 @@ fun AppNavigation() {
                             estado = reserva.estado
                         )
                     )
+                }
+            )
+        }
+
+        composable<DetalleReserva> { backStackEntry ->
+            val datos = backStackEntry.toRoute<DetalleReserva>()
+
+            ReservationDetailScreen(
+                nombreLibro = datos.nombreLibro,
+                autor = datos.autor,
+                fechaReserva = datos.fechaReserva,
+                codigoReserva = datos.codigoReserva,
+                estado = datos.estado,
+                onRenovarClick = {
+                    navController.navigate(
+                        RenovarReserva(
+                            nombreLibro = datos.nombreLibro,
+                            fechaReserva = datos.fechaReserva
+                        )
+                    )
+                },
+                onCancelarClick = {
+                    navController.popBackStack(MisReservas, inclusive = false)
                 }
             )
         }
