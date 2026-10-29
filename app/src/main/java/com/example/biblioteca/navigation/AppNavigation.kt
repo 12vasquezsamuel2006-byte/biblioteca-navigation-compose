@@ -9,6 +9,8 @@ import com.example.biblioteca.ui.theme.home.HomeScreen
 import com.example.biblioteca.ui.theme.home.BookListScreen
 import com.example.biblioteca.ui.theme.home.BookDetailScreen
 import com.example.biblioteca.ui.theme.home.ConfirmationScreen
+import com.example.biblioteca.ui.theme.home.MyReservationsScreen
+
 @Composable
 fun AppNavigation() {
     val navController = rememberNavController()
@@ -68,6 +70,25 @@ fun AppNavigation() {
                 fecha = datos.fecha,
                 onVolverInicioClick = {
                     navController.popBackStack(Inicio, inclusive = false)
+                },
+                onVerMisReservasClick = {
+                    navController.navigate(MisReservas)
+                }
+            )
+        }
+
+        composable<MisReservas> {
+            MyReservationsScreen(
+                onVerReservaClick = { reserva ->
+                    navController.navigate(
+                        DetalleReserva(
+                            nombreLibro = reserva.nombreLibro,
+                            autor = reserva.autor,
+                            fechaReserva = reserva.fechaReserva,
+                            codigoReserva = reserva.codigoReserva,
+                            estado = reserva.estado
+                        )
+                    )
                 }
             )
         }

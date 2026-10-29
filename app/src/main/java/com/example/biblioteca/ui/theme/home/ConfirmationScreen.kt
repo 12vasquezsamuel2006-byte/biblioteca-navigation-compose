@@ -19,7 +19,8 @@ import androidx.compose.ui.unit.sp
 fun ConfirmationScreen(
     nombreLibro: String,
     fecha: String,
-    onVolverInicioClick: () -> Unit
+    onVolverInicioClick: () -> Unit,
+    onVerMisReservasClick: () -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -56,13 +57,21 @@ fun ConfirmationScreen(
         }
 
         Button(
-            onClick = onVolverInicioClick,
+            onClick = onVerMisReservasClick,
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(top = 32.dp)
+        ) {
+            Text(text = "Ver Mis Reservas")
+        }
+
+        Button(
+            onClick = onVolverInicioClick,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 12.dp)
         ) {
             Text(text = "Volver al Inicio")
         }
     }
 }
-
